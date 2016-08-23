@@ -1,0 +1,59 @@
+<pre>
+{
+	"objects" : [<!--#4DLOOP [Objects_1]-->
+		{
+		"embark_ID" : <!--#4DVAR [Objects_1]_Objects_1_ID-->,
+		"URL" : "http://embark.colby.edu/Obj<!--#4DVAR [Objects_1]_Objects_1_ID-->",
+		"Disp_Access_No" : "<!--#4DSCRIPT/SQL_Encode/[Objects_1]Disp_Access_No-->",
+		"_AccNumSort1" : "<!--#4DSCRIPT/SQL_Encode/[Objects_1]_AccNumSort1-->",
+		"Disp_Create_DT" : "<!--#4DVAR [Objects_1]Disp_Create_DT-->",
+		"_Disp_Start_Dat" : "<!--#4DVAR [Objects_1]_Disp_Start_Dat-->",
+		"_Disp_End_Date" : "<!--#4DVAR [Objects_1]_Disp_End_Date-->",
+		"Disp_Title" : "<!--#4DVAR [Objects_1]Disp_Title-->",
+		"Alt_Title" : "<!--#4DVAR [Objects_1]Alt_Title-->",
+		"Obj_Title" : "<!--#4DVAR [Objects_1]Obj_Title-->",
+		"Series_Title" : "<!--#4DVAR [Objects_1]Series_Title-->",
+		"Disp_Maker_1" : "<!--#4DVAR [Objects_1]Disp_Maker_1-->",
+		"Sort_Artist" : "<!--#4DVAR [Objects_1]Sort_Artist-->",
+		"Disp_Dimen" : "<!--#4DVAR [Objects_1]Disp_Dimen-->",
+		"Disp_Height" : "<!--#4DVAR [Objects_1]Disp_Height-->",
+		"Disp_Width" : "<!--#4DVAR [Objects_1]Disp_Width-->",
+		"Dimen_Extent" : "<!--#4DVAR [Objects_1]Dimen_Extent-->",
+		"Medium" : "<!--#4DSCRIPT/SQL_Encode/[Objects_1]Medium-->",
+		"Support" : "<!--#4DSCRIPT/SQL_Encode/[Objects_1]Support-->",
+		"Disp_Medium" : "<!--#4DVAR [Objects_1]Disp_Medium-->",
+		"Info_Page_Comm" : "<!--#4DVAR [Objects_1]Info_Page_Comm-->",
+		"Dedication" : "<!--#4DVAR [Objects_1]Dedication-->",
+		"Copyright_Type" : "<!--#4DVAR [Objects_1]Copyright_Type-->",
+		"Disp_Obj_Type" : "<!--#4DVAR [Objects_1]Disp_Obj_Type-->",
+		"Creation_Place2" : "<!--#4DVAR [Objects_1]Creation_Place2-->",
+		"Department" : "<!--#4DVAR [Objects_1]Department-->",
+		"Obj_Name" : "<!--#4DVAR [Objects_1]Obj_Name-->",
+		"Period" : "<!--#4DVAR [Objects_1]Period-->",
+		"Style" : "<!--#4DVAR [Objects_1]Style-->",
+		"Edition" : "<!--#4DSCRIPT/LoadObjectNotes/Edition--><!--#4DSCRIPT/SQL_Encode/[Object_Notes]Text-->",
+		"Curator" : "<!--#4DSCRIPT/LoadObjectNotes/Curator--><!--#4DSCRIPT/SQL_Encode/[Object_Notes]Text-->"<!--#4DSCRIPT/LoadRelatedRecords/Objects_1:Surrogates--><!--#4DLOOP [Surrogates]-->,
+		"ImagePath" : "<!--#4DVAR ImagePath("Surrogates")-->",
+    		"ThumbnailPath" : "<!--#4DVAR ThumbnailPath("Surrogates")-->",
+    		"PreviewPath" : "<!--#4DVAR PreviewPath("Surrogates")-->",
+    		"IsPrimary" : "<!--#4DVAR [Surrogates]IsPrimary-->",
+    		"_SurrogateID" : "<!--#4DVAR [Surrogates]_Surrogate_ID-->",
+    		"Image_Type" : "<!--#4DSCRIPT/SQL_Encode/[Surrogates]Image_Type-->",
+    		"Photo_Credit" : "<!--#4DSCRIPT/SQL_Encode/[Surrogates]PhotoCredit-->",
+    		"Remarks" : "<!--#4DSCRIPT/SQL_Encode/[Surrogates]Remarks-->",
+    		"View" : "<!--#4DSCRIPT/SQL_Encode/[Surrogates]View-->"<!--#4DENDLOOP-->
+		},<!--#4DENDLOOP-->
+	],
+	"exhibitions" : [<!--#4DLOOP [Objects_1]--><!--#4DSCRIPT/LoadRelatedRecords/Objects_1:Object_Use--><!--#4DLOOP [Object_Use]--><!--#4DSCRIPT/LoadRelatedRecords/Object_Use:Exhibitions--><!--#4DLOOP [Exhibitions]-->
+		{
+		"Exhibition_ID": <!--#4DVAR [Exhibitions]Exhibition_Num-->,
+		"embark_ID" : <!--#4DVAR [Objects_1]_Objects_1_ID-->,
+		"Exhibition_Name" : "<!--#4DSCRIPT/SQL_Encode/[Exhibitions]Exhibition_Name-->",
+		"Start_Date" : "<!--#4DVAR [Exhibitions]Start_Date-->",
+		"End_Date" : "<!--#4DVAR [Exhibitions]End_Date-->",
+		"User_Def_1" : "<!--#4DSCRIPT/SQL_Encode/[Exhibitions]User_Def_1-->"
+		},<!--#4DENDLOOP--><!--#4DENDLOOP--><!--#4DENDLOOP-->
+		
+	]
+}
+</pre>

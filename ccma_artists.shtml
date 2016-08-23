@@ -1,0 +1,34 @@
+-- <info>
+-- <foundcount><!--#4DVAR Records in Selection([Artist_Maker])--></foundcount>
+-- <criteria><!--#4DVAR queryString--></criteria>
+-- </info>
+<pre>
+--
+-- Colby College Museum of Art - Database Dump, JSON
+-- JSON Template version 0.9, updated 2/3/2015
+-- Data provided below is released under a Creative Commons Zero license (https://creativecommons.org/publicdomain/zero/1.0/).
+-- This data is provided as-is and should be considered alpha.
+--
+----------------------------------------------------------
+
+{
+	"artists" : [<!--#4DLOOP [Artist_Maker]-->
+		{
+		"_Artist_ID" : <!--#4DVAR [Artist_Maker]_Artist_ID-->,
+		"Biography" : "<!--#4DVAR [Artist_Maker]Biography-->",
+		"Prefix" : "<!--#4DVAR [Artist_Maker]Prefix-->",
+		"Suffix" : "<!--#4DVAR [Artist_Maker]Suffix-->",
+		"Sort_Name" : "<!--#4DVAR [Artist_Maker]Sort_Name-->",
+		"Nat_Culture_L2" : "<!--#4DVAR [Artist_Maker]Nat_Culture_L2-->",
+		"Disp_Maker_Life" : "<!--#4DVAR [Artist_Maker]Disp_Maker_Life-->",
+		"Role" : "<!--#4DVAR [Object_Artist]Role-->",
+		"Last_Name" : "<!--#4DVAR [Artist_Maker]Last_Name-->",
+		"First_Name" : "<!--#4DVAR [Artist_Maker]First_Name-->",
+		"Display_Name" : "<!--#4DVAR [Artist_Maker]Display_Name-->",
+		"Start_Date_Disp" : "<!--#4DVAR [Artist_Maker]Start_Date_Disp-->",
+		"End_Date_Disp" : "<!--#4DVAR [Artist_Maker]End_Date_Disp-->",
+		"Artist_Code" : "<!--#4DVAR [Artist_Maker]Artist_Code-->"
+		},<!--#4DENDLOOP-->
+	]
+}
+</pre>
