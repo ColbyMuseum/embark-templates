@@ -43,6 +43,17 @@ objects = objects.replace('\r', '')
 artists = artists.replace('\r','')
 exhibs = exhibs.replace('\r','')
 
+# 3a: Go through each line and make sure it ends with '{' , '}' , '[' , ']' , '"', or ','.
+# If it doesn't, append the next line (catches weird error where EOL is in embark fields)
+# FIXME: A gross hack, need to find all entries of this kind and fix them.
+
+lines = objects.splitlines()
+for i,line in enumerate(lines):
+	if line.endswith( ('Y', 'i') ):
+		lines[i+1] = lines[i] + lines[i+1]
+		lines.pop(i)
+objects = ''.join(lines)
+
 # 4: Make dicts from the JSON strings
 objects_dict = json.loads(objects)
 artists_dict = json.loads(artists)
