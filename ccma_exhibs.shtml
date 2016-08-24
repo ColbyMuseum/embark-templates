@@ -1,0 +1,15 @@
+<pre>
+{
+"exhibitions" : [<!--#4DLOOP [Objects_1]--><!--#4DSCRIPT/LoadRelatedRecords/Objects_1:Object_Use--><!--#4DLOOP [Object_Use]--><!--#4DSCRIPT/LoadRelatedRecords/Object_Use:Exhibitions--><!--#4DLOOP [Exhibitions]-->
+		{
+		"Exhibition_ID": 0,
+		"embark_ID" : <!--#4DVAR [Objects_1]_Objects_1_ID-->,
+		"Exhibition_Name" : "<!--#4DSCRIPT/SQL_Encode/[Exhibitions]Exhibition_Name-->",
+		"Start_Date" : "<!--#4DVAR [Exhibitions]Start_Date-->",
+		"End_Date" : "<!--#4DVAR [Exhibitions]End_Date-->",
+		"User_Def_1" : "<!--#4DSCRIPT/SQL_Encode/[Exhibitions]User_Def_1-->"
+		},<!--#4DENDLOOP--><!--#4DENDLOOP--><!--#4DENDLOOP-->
+		
+	]
+}
+</pre>
