@@ -32,7 +32,7 @@
 		"Period" : "<!--#4DVAR [Objects_1]Period-->",
 		"Style" : "<!--#4DVAR [Objects_1]Style-->",
 		"Edition" : "<!--#4DSCRIPT/LoadObjectNotes/Edition--><!--#4DSCRIPT/SQL_Encode/[Object_Notes]Text-->",
-		"Curator" : "<!--#4DSCRIPT/LoadObjectNotes/Curator--><!--#4DSCRIPT/SQL_Encode/[Object_Notes]Text-->"<!--#4DSCRIPT/LoadRelatedRecords/Objects_1:Surrogates--><!--#4DLOOP [Surrogates]-->,
+		"Curator" : "<!--#4DSCRIPT/LoadObjectNotes/Curator--><!--#4DSCRIPT/SQL_Encode/[Object_Notes]Text-->", "Images": [ <!--#4DSCRIPT/LoadRelatedRecords/Objects_1:Surrogates--><!--#4DLOOP [Surrogates]--> {
 		"ImagePath" : "<!--#4DVAR ImagePath("Surrogates")-->",
     		"ThumbnailPath" : "<!--#4DVAR ThumbnailPath("Surrogates")-->",
     		"PreviewPath" : "<!--#4DVAR PreviewPath("Surrogates")-->",
@@ -41,7 +41,7 @@
     		"Image_Type" : "<!--#4DSCRIPT/SQL_Encode/[Surrogates]Image_Type-->",
     		"Photo_Credit" : "<!--#4DSCRIPT/SQL_Encode/[Surrogates]PhotoCredit-->",
     		"Remarks" : "<!--#4DSCRIPT/SQL_Encode/[Surrogates]Remarks-->",
-    		"View" : "<!--#4DSCRIPT/SQL_Encode/[Surrogates]View-->"<!--#4DENDLOOP-->
+    		"View" : "<!--#4DSCRIPT/SQL_Encode/[Surrogates]View-->" } , <!--#4DENDLOOP-->]
 		},<!--#4DENDLOOP-->
 	]
 }
