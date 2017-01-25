@@ -1,3 +1,4 @@
+#!/usr/local/bin/python
 '''
 Colby College Museum of Art JSON export script, V1.0
 Simple script to download JSON from the webKiosk, do some basic cleanup of embark webkiosk quirks (HTML tag removal and making valid JSON)
@@ -40,12 +41,26 @@ artists = ''.join( artists.rsplit(',',1) )
 exhibs = ''.join( exhibs.rsplit(',',1) )
 
 # 2a: Strip trailing commas out of object images array
-objects = objects.replace('} , ]','} ]')
+regex = re.compile("}[ \t]+,[ \t]+\]", re.MULTILINE)
+objects = regex.sub('} ]',objects)
 
 # 3: Strip ^M chars out (necessary? may have just been curl being prickish)
 objects = objects.replace('\r', '')
 artists = artists.replace('\r','')
 exhibs = exhibs.replace('\r','')
+
+# =======
+# 3a: Go through each line and make sure it ends with '{' , '}' , '[' , ']' , '"', or ','.
+# If it doesn't, append the next line (catches weird error where EOL is in embark fields)
+# FIXME: A gross hack, need to find all entries of this kind and fix them.
+
+lines = objects.splitlines()
+for i,line in enumerate(lines):
+	if line.endswith( ('Y', 'i') ):
+		print line
+		lines[i+1] = lines[i] + lines[i+1]
+		lines.pop(i)
+objects = ''.join(lines)
 
 # 4: Make dicts from the JSON strings
 objects_dict = json.loads(objects)
@@ -55,12 +70,6 @@ exhibs_dict = json.loads(exhibs)
 # 5(-a): Unescape fields in all objects and fix image links in objects
 parser = HTMLParser.HTMLParser()
 for obj in objects_dict['objects']:
-	if 'PreviewPath' in obj:
-		obj['PreviewPath'] = obj['PreviewPath'].replace('/Media','http://embark.colby.edu:8080')
-	if 'ThumbnailPath' in obj:
-		obj['ThumbnailPath'] = obj['ThumbnailPath'].replace('/Media','http://embark.colby.edu:8080')
-	if 'ImagePath' in obj:
-		obj['ImagePath'] = obj['ImagePath'].replace('/Media','http://embark.colby.edu:8080')
 
 	#FIXME: should only be unescaping strings
 	for key,value in obj.iteritems():
@@ -77,21 +86,11 @@ for exhib in exhibs_dict['exhibitions']:
 		if isinstance(value, basestring):
 			exhib[key] = parser.unescape(value)
 
-# 5: Fix image links in objects, in 'ThumbnailPath' and 'PreviewPath' (reserving ImagePath for full-res)
-#for obj in objects_dict['objects']:
-#	if 'PreviewPath' in obj:
-#		obj['PreviewPath'] = obj['PreviewPath'].replace('/Media','http://embark.colby.edu:8080')
-#	if 'ThumbnailPath' in obj:
-#		obj['ThumbnailPath'] = obj['ThumbnailPath'].replace('/Media','http://embark.colby.edu:8080')
-#	if 'ImagePath' in obj:
-#		obj['ImagePath'] = obj['ImagePath'].replace('/Media','http://embark.colby.edu:8080')
-		
 # 6: Make objects, artists, and exhibitions into one JSON dict
 objects_dict.update(exhibs_dict)
 objects_dict.update(artists_dict)
 
 # 7: Write out 
-f = open('ccma.json', 'w')
-json.dump(objects_dict,f)
-f.close()
+with open('ccma.json', 'w') as f:
+	json.dump(objects_dict,f)
 
