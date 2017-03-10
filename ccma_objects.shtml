@@ -1,4 +1,3 @@
-<pre>
 {
 	"objects" : [<!--#4DLOOP [Objects_1]-->
 		{
@@ -33,10 +32,9 @@
 		"Style" : "<!--#4DVAR [Objects_1]Style-->",
 		"Edition" : "<!--#4DSCRIPT/LoadObjectNotes/Edition--><!--#4DSCRIPT/SQL_Encode/[Object_Notes]Text-->",
 		"Curator" : "<!--#4DSCRIPT/LoadObjectNotes/Curator--><!--#4DSCRIPT/SQL_Encode/[Object_Notes]Text-->", "Images": [ <!--#4DSCRIPT/LoadRelatedRecords/Objects_1:Surrogates--><!--#4DLOOP [Surrogates]--><!--#4DIF [Surrogates]Web_Access--> {
-		"ImagePath" : "http://embark.colby.edu:8080/images/<!--#4DVAR Filename("Surrogates")-->",
-    		"ThumbnailPath" : "http://embark.colby.edu:8080/Thumbnails/<!--#4DVAR Filename("Surrogates")-->",
-    		"PreviewPath" : "http://embark.colby.edu:8080/Previews/<!--#4DVAR Filename("Surrogates")-->",
-    		"IIIF_URL": "http://iiif.museum.colby.edu/<!--#4DVAR Filename("Surrogates")-->",
+		<!--#4DIF ([Surrogates]File_Name % "@_cd.jpg")-->"ImagePath" : "http://iiif.museum.colby.edu/<!--#4DVAR Filename("Surrogates")-->/full/full/0/default.jpg",
+		"IIIF_URL": "http://iiif.museum.colby.edu/<!--#4DVAR Filename("Surrogates")-->",<!--#4DELSE -->
+		"ImagePath" : "http://embark.colby.edu:8080/Previews/<!--#4DVAR Filename("Surrogates")-->",<!--#4DENDIF-->
 		"IsPrimary" : "<!--#4DVAR [Surrogates]IsPrimary-->",
     		"_SurrogateID" : "<!--#4DVAR [Surrogates]_Surrogate_ID-->",
     		"Image_Type" : "<!--#4DSCRIPT/SQL_Encode/[Surrogates]Image_Type-->",
@@ -46,4 +44,3 @@
 		},<!--#4DENDLOOP-->
 	]
 }
-</pre>
