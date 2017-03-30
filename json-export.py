@@ -3,14 +3,24 @@
 Colby College Museum of Art JSON export script, V1.0
 Simple script to download JSON from the webKiosk, do some basic cleanup of embark webkiosk quirks (HTML tag removal and making valid JSON)
 '''
-import requests, re, json
+import requests, re, json, argparse
 from pprint import pprint
 import HTMLParser
 
+#-1: Parse command line args
+'''
+parser = argparse.ArgumentParser()
+parser.add_argument("-u", "--url", required = True, help = "URL of the embark server (eg, http://embark.colby.edu)")
+parser.add_argument("-l","--layout", required = True, help = "Template layout name (eg, ccma_objects)")
+parser.add_argument("-a","--all", required = False, help = "Get all objects")
+parser.add_argument("-t","--type", required = True, help="Embark record type (ie, objects_1, artist_maker, etc)")
+args = vars(parser.parse_args())
+'''
+
 # 0: Get objects, artists, and exhibitions from the embark webkiosk
-objects_response = requests.get('http://embark.colby.edu/results.html?layout=ccma_objects&format=shtml&maximumrecords=9000&recordType=objects_1&query=_ID>1')
-artists_response = requests.get('http://embark.colby.edu/results.html?layout=ccma_artists&format=shtml&maximumrecords=9000&recordType=artist_maker&query=_ID>1')
-exhibs_response =  requests.get('http://embark.colby.edu/results.html?layout=ccma_exhibs&format=shtml&maximumrecords=9000&recordType=objects_1&query=_ID>1')
+objects_response = requests.get('http://embark.colby.edu/results.html?layout=ccma_objects&format=shtml&maximumrecords=-1&recordType=objects_1&query=_ID>1')
+artists_response = requests.get('http://embark.colby.edu/results.html?layout=ccma_artists&format=shtml&maximumrecords=-1&recordType=artist_maker&query=_ID>1')
+exhibs_response =  requests.get('http://embark.colby.edu/results.html?layout=ccma_exhibs&format=shtml&maximumrecords=-1&recordType=objects_1&query=_ID>1')
 
 if objects_response.status_code == 200:
 	print "Got objects and exhibitions successfully."
@@ -25,6 +35,7 @@ if exhibs_response.status_code == 200:
 	exhibs = exhibs_response.content
 
 # Data-munging hacks to get around limits in Embark template language... 
+
 # 1: Strip <pre> HTML tags
 objects = objects.replace('<pre>','')
 objects = objects.replace('</pre>','')
@@ -41,6 +52,7 @@ artists = ''.join( artists.rsplit(',',1) )
 exhibs = ''.join( exhibs.rsplit(',',1) )
 
 # 2a: Strip trailing commas out of object images array
+# Matches a magic pattern--"},]"
 regex = re.compile("}[ \t]+,[ \t]+\]", re.MULTILINE)
 objects = regex.sub('} ]',objects)
 
@@ -66,15 +78,24 @@ objects = ''.join(lines)
 objects_dict = json.loads(objects)
 artists_dict = json.loads(artists)
 exhibs_dict = json.loads(exhibs)
-
+				
 # 5(-a): Unescape fields in all objects and fix image links in objects
+# FIXME: This should be done in template w/ 4DHTML/4DVAR tags
 parser = HTMLParser.HTMLParser()
 for obj in objects_dict['objects']:
-
-	#FIXME: should only be unescaping strings
+	
 	for key,value in obj.iteritems():
 		if isinstance(value, basestring):
 			obj[key] = parser.unescape(value)
+
+	for image in obj['Images']:
+		path = image.get('ImagePath')
+		iiif = image.get('IIIF_URL')
+		
+		if path and iiif:
+			print "Fixing image %s" % path
+			image['ImagePath'] = path.replace("_cd.jpg","").replace("http://iiif.museum.colby.edu/","https://iiif.museum.colby.edu/image/")
+			image['IIIF_URL'] = iiif.replace("_cd.jpg","").replace("http://","https://")
 
 for artist in artists_dict['artists']:
 	for key,value in artist.iteritems():
@@ -92,5 +113,5 @@ objects_dict.update(artists_dict)
 
 # 7: Write out 
 with open('ccma.json', 'w') as f:
-	json.dump(objects_dict,f)
+	json.dump(objects_dict,f, sort_keys=True, indent=4, separators=(',', ': '))
 
