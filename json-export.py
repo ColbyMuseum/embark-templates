@@ -70,7 +70,7 @@ regex = re.compile("}[ \t]+,[ \t]+\]", re.MULTILINE)
 objects = regex.sub('} ]',objects)
 
 # 3: Strip out newlines and carriage returns 
-objects = objects.replace('\r', '').replace('\n','')
+objects = objects.replace('\r', '').replace('\n','').replace('\t','     ')
 artists = artists.replace('\r','').replace('\n','')
 exhibs = exhibs.replace('\r','').replace('\n','')
 
